@@ -1,0 +1,26 @@
+name: Test github Actions
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - run: | 
+         if [ -e 'package-lock.json' ]; then 
+          npm ci
+         else 
+          npm install
+         fi
+      - run: |
+          npm run build-storybook
+          git config --global user.name "BlackBo6"
+          git config --global user.email "achrafboucetta00@gmail.com"
+          git add -A
+          git commit -m "push storybook static page"
+          git push -u origin master

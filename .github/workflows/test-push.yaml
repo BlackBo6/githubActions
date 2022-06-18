@@ -12,9 +12,11 @@ jobs:
         with:
           node-version: 16
       - run: | 
-         if [ -e 'package-lock.json' ]; then 
+         if [ -e 'package-lock.json' ]; then
+          cd project
           npm ci
          else 
+          cd project
           npm install
          fi
       - run: |

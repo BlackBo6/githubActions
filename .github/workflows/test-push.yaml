@@ -13,8 +13,11 @@ jobs:
           node-version: 16
       - name: Install and Build
         run: |
-          cd project
+          if [ -e 'package-lock.json' ]; then 
+          npm ci
+          else 
           npm install
+          fi
           npm run deploy-storybook -- --ci
         env :
           GH_TOKEN: ${{ secrets.GH_TOKEN }}

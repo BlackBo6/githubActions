@@ -13,6 +13,7 @@ jobs:
           node-version: 16
       - name: Install and Build
         run: |
+          cd project
           if [ -e 'package-lock.json' ]; then 
           npm ci
           else 

@@ -11,19 +11,11 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 16
-      - run: | 
-         if [ -e 'package-lock.json' ]; then
-          cd project
-          npm ci
-         else 
+      - name: Install and Build
+        run: |
           cd project
           npm install
-         fi
-      - run: |
-          cd project
-          npm run build-storybook
-          git config --global user.name "BlackBo6"
-          git config --global user.email "achrafboucetta00@gmail.com"
-          git add -A
-          git commit -m "push storybook static page"
-          git push -u origin master
+          npm run deploy-storybook -- --ci
+        env :
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          
